@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 [Route("api/")]
-[ApiController()]
+[ApiController]
 public class CourseController : ControllerBase
 {
     private readonly CourseService _courseService;
@@ -11,6 +10,8 @@ public class CourseController : ControllerBase
     {
         _courseService = courseService;
     }
+
+    // Lấy danh sách khóa học
     [HttpGet("courses")]
     public ActionResult<ApiResponse<List<Course>>> GetCourses()
     {
@@ -22,30 +23,53 @@ public class CourseController : ControllerBase
 
         return Ok(new ApiResponse<List<Course>>(200, courses));
     }
+
+    // Tạo mới khóa học
     [HttpPost("courses")]
     public IActionResult CreateCourse([FromBody] Course newCourse)
     {
-        // if (!ModelState.IsValid)
-        // {
-        //    
-        //     var errorMessages = ModelState.Values
-        //         .SelectMany(v => v.Errors)
-        //         .Select(e => e.ErrorMessage)
-        //     return BadRequest(new ApiResponse<string>(400, "Dữ liệu không hợp lệ.\n" + errorMessages));
-        // }
-        if (newCourse == null)
+        try
         {
-            return BadRequest("Không được bỏ trống khóa học.");
+            _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
+            return Ok(new ApiResponse<string>(200, "Tạo khóa học thành công."));
         }
-
-        if (string.IsNullOrEmpty(newCourse.Title))
+        catch (ArgumentException ex)
         {
-            return BadRequest("Tiêu đề khóa học không được bỏ trống.");
+            return BadRequest(new ApiResponse<string>(400, ex.Message));
         }
-
-        _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
-        return Ok(new ApiResponse<List<Course>>(0, "Tạo khóa học thành công."));
     }
 
+    // Cập nhật khóa học
+    [HttpPut("courses/{courseId}")]
+    public IActionResult UpdateCourse(int courseId, [FromBody] Course updatedCourse)
+    {
+        try
+        {
+            _courseService.UpdateCourse(courseId, updatedCourse.Title, updatedCourse.Credits ?? 0);
+            return Ok(new ApiResponse<string>(200, "Cập nhật khóa học thành công."));
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new ApiResponse<string>(400, ex.Message));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new ApiResponse<string>(404, ex.Message));
+        }
+    }
 
+    // Xóa khóa học
+    [HttpDelete("courses/{courseId}")]
+    public IActionResult DeleteCourse(int courseId)
+    {
+        try
+        {
+            _courseService.DeleteCourse(courseId);
+            return Ok(new ApiResponse<string>(200, "Xóa khóa học thành công."));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new ApiResponse<string>(404, ex.Message));
+        }
+    }
 }
