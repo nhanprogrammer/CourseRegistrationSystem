@@ -1,3 +1,5 @@
+using CourseRegistrationSystem.Repositories;
+using CourseRegistrationSystem.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +7,9 @@ builder.Services.AddDbContext<SchoolContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolDB")));
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<EnrollmentRepository>();
+builder.Services.AddScoped<EnrollmentService>();
+builder.Services.AddScoped<StudentRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

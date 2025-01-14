@@ -14,6 +14,11 @@ public class CourseRepository
                        .FromSqlRaw("SELECT * FROM Courses WHERE CourseID = {0}", courseId)
                        .FirstOrDefault() ?? new Course();
     }
+    
+    public Course GetSingleCourse(int courseId)
+    {
+        return _context.Courses.FirstOrDefault(o=>o.CourseID == courseId);
+    }
 
     public List<Course> GetAllCourses()
     {

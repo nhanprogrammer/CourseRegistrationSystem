@@ -29,11 +29,10 @@ namespace CourseRegistrationSystem.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CourseID"));
 
-                    b.Property<int>("Credits")
+                    b.Property<int?>("Credits")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("CourseID");
@@ -53,7 +52,6 @@ namespace CourseRegistrationSystem.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Grade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("StudentID")
@@ -80,11 +78,9 @@ namespace CourseRegistrationSystem.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstMidName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ID");

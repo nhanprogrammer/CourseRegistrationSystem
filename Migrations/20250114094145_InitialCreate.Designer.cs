@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CourseRegistrationSystem.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250111102751_InitialCreate")]
+    [Migration("20250114094145_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,10 @@ namespace CourseRegistrationSystem.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CourseID"));
 
-                    b.Property<int>("Credits")
+                    b.Property<int?>("Credits")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("CourseID");
@@ -55,7 +54,6 @@ namespace CourseRegistrationSystem.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Grade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("StudentID")
@@ -82,11 +80,9 @@ namespace CourseRegistrationSystem.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstMidName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ID");

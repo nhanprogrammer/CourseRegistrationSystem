@@ -11,7 +11,8 @@ public class CourseService
     {
         return _courseRepository.GetAllCourses();
     }
- public void CreateNewCourse(string title, int credits)
+
+    public void CreateNewCourse(string title, int credits)
     {
         var newCourse = new Course
         {

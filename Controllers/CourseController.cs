@@ -22,6 +22,7 @@ public class CourseController : ControllerBase
 
         return Ok(new ApiResponse<List<Course>>(200, courses));
     }
+    
     [HttpPost("courses")]
     public IActionResult CreateCourse([FromBody] Course newCourse)
     {
