@@ -1,23 +1,35 @@
-# Sử dụng hình ảnh .NET SDK để build ứng dụng
+# Sử dụng .NET SDK để build ứng dụng
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Thiết lập thư mục làm việc
+WORKDIR /src
+
+# Copy file .csproj vào thư mục làm việc
+COPY ["CourseRegistrationSystem.csproj", "./"]
+
+# Restore dependencies
+RUN dotnet restore "CourseRegistrationSystem.csproj"
+
+# Copy toàn bộ mã nguồn vào container
+COPY . .
+
+# Build ứng dụng
+RUN dotnet build "CourseRegistrationSystem.csproj" -c Release -o /app/build
+
+# Publish ứng dụng ra thư mục /app/publish
+RUN dotnet publish "CourseRegistrationSystem.csproj" -c Release -o /app/publish
+
+# Sử dụng .NET Runtime để chạy ứng dụng (không cần build lại)
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+
+# Thiết lập thư mục làm việc trong container
 WORKDIR /app
 
-# Copy file dự án và khôi phục dependency
-COPY *.csproj ./
-RUN dotnet restore
+# Copy ứng dụng đã build vào thư mục làm việc
+COPY --from=build /app/publish .
 
-# Copy toàn bộ mã nguồn và build
-COPY . ./
-RUN dotnet publish -c Release -o /out
-
-# Sử dụng hình ảnh .NET Runtime để chạy ứng dụng
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
-COPY --from=build /out .
-
-# Expose cổng HTTP và HTTPS
+# Mở cổng 80 cho ứng dụng web
 EXPOSE 80
-EXPOSE 443
 
-# Lệnh chạy ứng dụng
+# Chạy ứng dụng
 ENTRYPOINT ["dotnet", "CourseRegistrationSystem.dll"]

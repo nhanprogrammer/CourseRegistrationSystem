@@ -18,10 +18,10 @@ public class CourseController : ControllerBase
         var courses = _courseService.GetCourses();
         if (courses == null || courses.Count == 0)
         {
-            return NotFound(new ApiResponse<List<Course>>(404, "Không tìm thấy khóa học."));
+            return NotFound(new ApiResponse<List<Course>>(0, "Không tìm thấy khóa học."));
         }
 
-        return Ok(new ApiResponse<List<Course>>(200, courses));
+        return Ok(new ApiResponse<List<Course>>(0, courses));
     }
 
     // Tạo mới khóa học
@@ -31,11 +31,11 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
-            return Ok(new ApiResponse<string>(200, "Tạo khóa học thành công."));
+            return Ok(new ApiResponse<string>(0, "Tạo khóa học thành công."));
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new ApiResponse<string>(400, ex.Message));
+            return BadRequest(new ApiResponse<string>(1, ex.Message));
         }
     }
 
@@ -46,15 +46,15 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.UpdateCourse(courseId, updatedCourse.Title, updatedCourse.Credits ?? 0);
-            return Ok(new ApiResponse<string>(200, "Cập nhật khóa học thành công."));
+            return Ok(new ApiResponse<string>(0, "Cập nhật khóa học thành công."));
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new ApiResponse<string>(400, ex.Message));
+            return BadRequest(new ApiResponse<string>(1, ex.Message));
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(new ApiResponse<string>(404, ex.Message));
+            return NotFound(new ApiResponse<string>(1, ex.Message));
         }
     }
 
@@ -65,11 +65,11 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.DeleteCourse(courseId);
-            return Ok(new ApiResponse<string>(200, "Xóa khóa học thành công."));
+            return Ok(new ApiResponse<string>(0, "Xóa khóa học thành công."));
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(new ApiResponse<string>(404, ex.Message));
+            return NotFound(new ApiResponse<string>(1, ex.Message));
         }
     }
 }
