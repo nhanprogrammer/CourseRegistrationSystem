@@ -1,3 +1,4 @@
+using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/")]
@@ -13,15 +14,21 @@ public class CourseController : ControllerBase
 
     // Lấy danh sách khóa học
     [HttpGet("courses")]
-    public ActionResult<ApiResponse<List<Course>>> GetCourses()
+    public IActionResult GetCourses()
     {
-        var courses = _courseService.GetCourses();
-        if (courses == null || courses.Count == 0)
+        try
         {
-            return NotFound(new ApiResponse<List<Course>>(0, "Không tìm thấy khóa học."));
+            var courses = _courseService.GetCourses();
+            return Ok(new { Status = 0, Data = courses });
         }
-
-        return Ok(new ApiResponse<List<Course>>(0, courses));
+        catch (NotFoundException ex)
+        {
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+        }
     }
 
     // Tạo mới khóa học
@@ -31,11 +38,15 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
-            return Ok(new ApiResponse<string>(0, "Tạo khóa học thành công."));
+            return Ok(new { Status = 0, Message = "Tạo khóa học thành công." });
         }
-        catch (ArgumentException ex)
+        catch (BadRequestException ex)
         {
-            return BadRequest(new ApiResponse<string>(1, ex.Message));
+            return BadRequest(new { Status = 1, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
         }
     }
 
@@ -46,15 +57,19 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.UpdateCourse(courseId, updatedCourse.Title, updatedCourse.Credits ?? 0);
-            return Ok(new ApiResponse<string>(0, "Cập nhật khóa học thành công."));
+            return Ok(new { Status = 0, Message = "Cập nhật khóa học thành công." });
         }
-        catch (ArgumentException ex)
+        catch (BadRequestException ex)
         {
-            return BadRequest(new ApiResponse<string>(1, ex.Message));
+            return BadRequest(new { Status = 1, Message = ex.Message });
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
-            return NotFound(new ApiResponse<string>(1, ex.Message));
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
         }
     }
 
@@ -65,11 +80,19 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.DeleteCourse(courseId);
-            return Ok(new ApiResponse<string>(0, "Xóa khóa học thành công."));
+            return Ok(new { Status = 0, Message = "Xóa khóa học thành công." });
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
-            return NotFound(new ApiResponse<string>(1, ex.Message));
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (BadRequestException ex)
+        {
+            return BadRequest(new { Status = 1, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
         }
     }
 }

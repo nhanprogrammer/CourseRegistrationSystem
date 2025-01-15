@@ -1,4 +1,4 @@
-﻿using CourseRegistrationSystem.Services;
+using CourseRegistrationSystem.Services;
 using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,7 +41,10 @@ public class EnrollmentController : ControllerBase
         try
         {
             var enrollments = _enrollmentService.GetAllEnrollments();
-
+            if (enrollments == null || enrollments.Count == 0)
+            {
+                return StatusCode(404, new { Status = 0, Description = "Không tìm thấy đăng ký khóa học." });
+            }
             return Ok(new { Status = 0, Description = enrollments });
         }
         catch (Exception e)
@@ -97,4 +100,22 @@ public class EnrollmentController : ControllerBase
             return StatusCode(500, new { Status = 1, Description = "Lỗi máy chủ." });
         }
     }
+
+    [HttpDelete]
+        public IActionResult DeleteEnrollment([FromQuery] int id)
+        {
+            try
+            {
+                _enrollmentService.DeleteEnrollment(id);
+                return Ok(new { Status = 0, Message = "Xóa thông tin ghi danh thành công." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Status = 0, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            }
+        }
 }

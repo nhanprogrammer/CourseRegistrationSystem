@@ -1,4 +1,5 @@
 using CourseRegistrationSystem.Repositories;
+using CourseSystem.Helpers;
 using System.Collections.Generic;
 
 namespace CourseRegistrationSystem.Services
@@ -6,101 +7,77 @@ namespace CourseRegistrationSystem.Services
     public class StudentService
     {
         private readonly StudentRepository _repository;
+        private readonly EnrollmentRepository _enrollmentRepository;
 
         public StudentService(StudentRepository repository)
         {
             _repository = repository;
         }
 
-        public ApiResponse<IEnumerable<Student>> GetAll()
+        public List<Student> GetAll()
         {
-            try
-            {
-                var students = _repository.GetAllStudents();
-                if (students == null || !students.Any())
-                {
-                    return new ApiResponse<IEnumerable<Student>>(1, "Không tìm thấy sinh viên nào");
-                }
-                return new ApiResponse<IEnumerable<Student>>(0, students);
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse<IEnumerable<Student>>(1, ex.Message);
-            }
+            return _repository.GetAllStudents();
         }
 
-        public ApiResponse<Student> GetById(int id)
+        // public ApiResponse<Student> GetById(int id)
+        // {
+        //     try
+        //     {
+        //         var student = _repository.GetStudentById(id);
+        //         if (student == null)
+        //         {
+        //             return new ApiResponse<Student>(0, "Không tìm thấy sinh viên");
+        //         }
+        //         return new ApiResponse<Student>(0, student);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return new ApiResponse<Student>(1, ex.Message);
+        //     }
+        // }
+
+        public void Add(Student student)
         {
-            try
+            if (student == null)
             {
-                var student = _repository.GetStudentById(id);
-                if (student == null)
-                {
-                    return new ApiResponse<Student>(1, "Không tìm thấy sinh viên");
-                }
-                return new ApiResponse<Student>(0, student);
+                throw new BadRequestException("Thông tin sinh viên không được rỗng.");
             }
-            catch (Exception ex)
+
+            if (student.EnrollmentDate <= DateTime.Now)
             {
-                return new ApiResponse<Student>(1, ex.Message);
+                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
             }
+
+            _repository.AddStudent(student);
         }
 
-        public ApiResponse<string> Add(Student student)
+
+        public void Update(int id, Student student)
         {
-            try
+            if (student == null)
             {
-                if (student == null)
-                {
-                    return new ApiResponse<string>(1, "Dữ liệu không hợp lệ");
-                }
-
-                if (student.EnrollmentDate <= DateTime.Now)
-                {
-                    return new ApiResponse<string>(1, "Ngày nhập học phải lớn hơn ngày hiện tại");
-                }
-
-                _repository.AddStudent(student);
-                return new ApiResponse<string>(0, "Thêm sinh viên thành công");
+                throw new BadRequestException("Dữ liệu không được rỗng.");
             }
-            catch (Exception ex)
+
+            if (id != student.ID)
             {
-                return new ApiResponse<string>(1, ex.Message);
+                throw new BadRequestException("ID không khớp.");
             }
-        }
 
-        public ApiResponse<string> Update(int id, Student student)
-        {
-            try
+            if (student.EnrollmentDate <= DateTime.Now)
             {
-                if (id != student.ID)
-                {
-                    return new ApiResponse<string>(1, "ID không khớp");
-                }
-
-                if (student == null)
-                {
-                    return new ApiResponse<string>(1, "Dữ liệu không hợp lệ");
-                }
-
-                if (student.EnrollmentDate <= DateTime.Now)
-                {
-                    return new ApiResponse<string>(1, "Ngày nhập học phải lớn hơn ngày hiện tại");
-                }
-
-                var existingStudent = _repository.GetStudentById(id);
-                if (existingStudent == null)
-                {
-                    return new ApiResponse<string>(1, "Không tìm thấy sinh viên");
-                }
-                _repository.DetachStudent(existingStudent);
-                _repository.UpdateStudent(student);
-                return new ApiResponse<string>(0, "Cập nhật sinh viên thành công");
+                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
             }
-            catch (Exception ex)
+
+            var existingStudent = _repository.GetStudentById(id);
+            if (existingStudent == null)
             {
-                return new ApiResponse<string>(1, ex.Message);
+                throw new NotFoundException("Không tìm thấy sinh viên.");
             }
+
+            _repository.DetachStudent(existingStudent);
+            _repository.UpdateStudent(student);
+
             // try
             // {
             //     // Tải đối tượng từ DB theo ID
@@ -127,23 +104,20 @@ namespace CourseRegistrationSystem.Services
             // }
         }
 
-        public ApiResponse<string> Delete(int id)
+        public void Delete(int id)
         {
-            try
+            var student = _repository.GetStudentById(id);
+            if (student == null)
             {
-                var student = _repository.GetStudentById(id);
-                if (student == null)
-                {
-                    return new ApiResponse<string>(1, "Không tìm thấy sinh viên");
-                }
+                throw new NotFoundException("Không tìm thấy sinh viên.");
+            }
+            if (_enrollmentRepository.HasEnrollmentsForStudent(id))
+            {
+                throw new BadRequestException("Không thể xóa sinh viên vì có khóa học đã đăng ký.");
+            }
 
-                _repository.DeleteStudent(id);
-                return new ApiResponse<string>(0, "Xóa sinh viên thành công");
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse<string>(1, ex.Message);
-            }
+            _repository.DeleteStudent(id);
         }
+
     }
 }

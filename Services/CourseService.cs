@@ -1,7 +1,10 @@
-﻿public class CourseService
+﻿using CourseRegistrationSystem.Repositories;
+using CourseSystem.Helpers;
+
+public class CourseService
 {
     private readonly CourseRepository _courseRepository;
-
+    private readonly EnrollmentRepository _enrollmentRepository;
     public CourseService(CourseRepository courseRepository)
     {
         _courseRepository = courseRepository;
@@ -70,7 +73,10 @@
         {
             throw new KeyNotFoundException("Không tìm thấy khóa học.");
         }
-
+        if (_enrollmentRepository.HasEnrollmentsForCourse(courseId))
+        {
+            throw new BadRequestException("Không thể xóa khóa học vì có sinh viên đã đăng ký.");
+        }
         _courseRepository.DeleteCourse(course);
     }
 }

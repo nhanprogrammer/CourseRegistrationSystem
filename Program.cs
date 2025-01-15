@@ -15,10 +15,7 @@ builder.Services.AddScoped<StudentService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Đăng ký converter cho DateTime
         options.JsonSerializerOptions.Converters.Add(new JsonDateTimeConverter("yyyy-MM-dd"));
-
-        // Các cấu hình khác
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;

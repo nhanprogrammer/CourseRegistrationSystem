@@ -1,4 +1,5 @@
 using CourseRegistrationSystem.Services;
+using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseRegistrationSystem.Controllers
@@ -17,29 +18,71 @@ namespace CourseRegistrationSystem.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var response = _service.GetAll();
-            return StatusCode(response.Status, response);
+            try
+            {
+                var response = _service.GetAll();
+                if (response == null || response.Count == 0)
+                {
+                    return StatusCode(404, new { Status = 0, Description = "Không tìm thấy sinh viên." });
+                }
+                return Ok(new { Status = 0, Description = response });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
+            }
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var response = _service.GetById(id);
-            return StatusCode(response.Status, response);
-        }
+        // [HttpGet("{id}")]
+        // public IActionResult GetById(int id)
+        // {
+        //     var response = _service.GetById(id);
+        //     return StatusCode(response.Status, response);
+        // }
 
         [HttpPost]
         public IActionResult Create([FromBody] Student student)
         {
-            var response = _service.Add(student);
-            return StatusCode(response.Status, response);
+            try
+            {
+                _service.Add(student);
+                return Ok(new { Status = 0, Message = "Thêm sinh viên thành công." });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new { Status = 1, Message = ex.Message });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Status = 0, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Student student)
+
+        [HttpPut]
+        public IActionResult Update([FromQuery] int id, [FromBody] Student student)
         {
-            var response = _service.Update(id, student);
-            return StatusCode(response.Status, response);
+            try
+            {
+                _service.Update(id, student);
+                return Ok(new { Status = 0, Message = "Cập nhật sinh viên thành công." });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new { Status = 1, Message = ex.Message });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Status = 0, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            }
         }
 
         // [HttpPut("{id}")]
@@ -61,11 +104,27 @@ namespace CourseRegistrationSystem.Controllers
         //     return NoContent(); // Trả về 204 khi thành công
         // }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete([FromQuery] int id)
         {
-            var response = _service.Delete(id);
-            return StatusCode(response.Status, response);
+            try
+            {
+                _service.Delete(id);
+                return Ok(new { Status = 0, Message = "Xóa sinh viên thành công." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Status = 0, Message = ex.Message });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new { Status = 1, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            }
         }
+
     }
 }

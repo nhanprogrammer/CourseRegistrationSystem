@@ -38,4 +38,21 @@ public class EnrollmentRepository
 
         return isRegistered != null;
     }
+
+    public bool HasEnrollmentsForStudent(int studentId)
+    {
+        return _schoolContext.Enrollments.Any(e => e.StudentID == studentId);
+    }
+
+    public bool HasEnrollmentsForCourse(int courseId)
+    {
+        return _schoolContext.Enrollments.Any(e => e.CourseID == courseId);
+    }
+
+    public void RemoveEnrollment(Enrollment enrollment)
+    {
+        _schoolContext.Enrollments.Remove(enrollment);
+        _schoolContext.SaveChanges();
+    }
+
 }

@@ -85,5 +85,15 @@ public class EnrollmentService
 
         _enrollmentRepository.UpdateEnrollment(enrollmentExit);
     }
-    
+
+        public void DeleteEnrollment(int id)
+        {
+            var enrollment = _enrollmentRepository.GetEnrollmentById(id);
+            if (enrollment == null)
+            {
+                throw new NotFoundException("Không tìm thấy thông tin ghi danh.");
+            }
+            _enrollmentRepository.RemoveEnrollment(enrollment);
+        }
+
 }
