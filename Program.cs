@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SchoolContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolDB")));
+options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolDB")));
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<EnrollmentRepository>();
