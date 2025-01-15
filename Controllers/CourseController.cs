@@ -1,8 +1,8 @@
+using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 [Route("api/")]
-[ApiController()]
+[ApiController]
 public class CourseController : ControllerBase
 {
     private readonly CourseService _courseService;
@@ -11,71 +11,88 @@ public class CourseController : ControllerBase
     {
         _courseService = courseService;
     }
-    [HttpGet("courses")]
-    public ActionResult<ApiResponse<List<Course>>> GetCourses()
-    {
-        var courses = _courseService.GetCourses();
-        if (courses == null || courses.Count == 0)
-        {
-            return NotFound(new ApiResponse<List<Course>>(404, "Không tìm thấy khóa học."));
-        }
 
-        return Ok(new ApiResponse<List<Course>>(200, courses));
+    // Lấy danh sách khóa học
+    [HttpGet("courses")]
+    public IActionResult GetCourses()
+    {
+        try
+        {
+            var courses = _courseService.GetCourses();
+            return Ok(new { Status = 0, Data = courses });
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+        }
     }
+
+    // Tạo mới khóa học
     [HttpPost("courses")]
     public IActionResult CreateCourse([FromBody] Course newCourse)
     {
-        // if (!ModelState.IsValid)
-        // {
-        //    
-        //     var errorMessages = ModelState.Values
-        //         .SelectMany(v => v.Errors)
-        //         .Select(e => e.ErrorMessage)
-        //     return BadRequest(new ApiResponse<string>(400, "Dữ liệu không hợp lệ.\n" + errorMessages));
-        // }
-        if (newCourse == null)
+        try
         {
-            return BadRequest("Không được bỏ trống khóa học.");
+            _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
+            return Ok(new { Status = 0, Message = "Tạo khóa học thành công." });
         }
-
-        if (string.IsNullOrEmpty(newCourse.Title))
+        catch (BadRequestException ex)
         {
-            return BadRequest("Tiêu đề khóa học không được bỏ trống.");
+            return BadRequest(new { Status = 1, Message = ex.Message });
         }
-
-        _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
-        return Ok(new ApiResponse<List<Course>>(0, "Tạo khóa học thành công."));
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+        }
     }
 
-    [HttpDelete("courses")]
-    public IActionResult DeleteCourse([FromQuery] int courseId)
+    // Cập nhật khóa học
+    [HttpPut("courses/{courseId}")]
+    public IActionResult UpdateCourse(int courseId, [FromBody] Course updatedCourse)
     {
-        Console.WriteLine("Removing course with ID: " + courseId);
+        try
+        {
+            _courseService.UpdateCourse(courseId, updatedCourse.Title, updatedCourse.Credits ?? 0);
+            return Ok(new { Status = 0, Message = "Cập nhật khóa học thành công." });
+        }
+        catch (BadRequestException ex)
+        {
+            return BadRequest(new { Status = 1, Message = ex.Message });
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+        }
+    }
 
-        if (courseId <= 0)
+    // Xóa khóa học
+    [HttpDelete("courses/{courseId}")]
+    public IActionResult DeleteCourse(int courseId)
+    {
+        try
         {
-            return BadRequest(new ApiResponse<string>(1, "ID không hợp lệ."));
+            _courseService.DeleteCourse(courseId);
+            return Ok(new { Status = 0, Message = "Xóa khóa học thành công." });
         }
-
-        var response = _courseService.RemoveCourse(courseId);
-        if (response.ErrorCode == 0)
+        catch (NotFoundException ex)
         {
-            return Ok(response);
+            return NotFound(new { Status = 0, Message = ex.Message });
         }
-        else if (response.ErrorCode == 1)
+        catch (BadRequestException ex)
         {
-            if (response.Description.Contains("không tồn tại"))
-            {
-                return NotFound(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return BadRequest(new { Status = 1, Message = ex.Message });
         }
-        else
+        catch (Exception ex)
         {
-            return StatusCode(1, response);
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
         }
     }
 }

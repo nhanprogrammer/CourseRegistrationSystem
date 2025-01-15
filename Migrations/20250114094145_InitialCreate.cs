@@ -16,8 +16,8 @@ namespace CourseRegistrationSystem.Migrations
                 {
                     CourseID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Credits = table.Column<int>(type: "integer", nullable: false)
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Credits = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,8 +30,8 @@ namespace CourseRegistrationSystem.Migrations
                 {
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    FirstMidName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    FirstMidName = table.Column<string>(type: "text", nullable: true),
                     EnrollmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -47,7 +47,7 @@ namespace CourseRegistrationSystem.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CourseID = table.Column<int>(type: "integer", nullable: false),
                     StudentID = table.Column<int>(type: "integer", nullable: false),
-                    Grade = table.Column<string>(type: "text", nullable: false)
+                    Grade = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

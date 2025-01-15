@@ -1,8 +1,10 @@
+﻿using CourseRegistrationSystem.Repositories;
+using CourseSystem.Helpers;
+
 public class CourseService
 {
     private readonly CourseRepository _courseRepository;
     private readonly EnrollmentRepository _enrollmentRepository;
-
     public CourseService(CourseRepository courseRepository, EnrollmentRepository enrollmentRepository)
     {
         _courseRepository = courseRepository;
@@ -14,12 +16,25 @@ public class CourseService
         return course;
     }
 
+    // Lấy danh sách khóa học
     public List<Course> GetCourses()
     {
         return _courseRepository.GetAllCourses();
     }
+
+    // Tạo mới khóa học
     public void CreateNewCourse(string title, int credits)
     {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Tiêu đề khóa học không được để trống.");
+        }
+
+        if (credits <= 0 || credits > 10)
+        {
+            throw new ArgumentException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
+        }
+
         var newCourse = new Course
         {
             Title = title,
@@ -29,27 +44,45 @@ public class CourseService
         _courseRepository.AddCourse(newCourse);
     }
 
-    public ApiResponse<string> RemoveCourse(int courseId)
+    // Cập nhật thông tin khóa học
+    public void UpdateCourse(int courseId, string title, int credits)
     {
         var course = _courseRepository.GetCourseById(courseId);
+
         if (course == null)
         {
-            return new ApiResponse<string>(1, $"Khóa học với ID {courseId} không tồn tại.");
+            throw new KeyNotFoundException("Không tìm thấy khóa học.");
         }
 
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Tiêu đề khóa học không được để trống.");
+        }
+
+        if (credits <= 0 || credits > 10)
+        {
+            throw new ArgumentException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
+        }
+
+        course.Title = title;
+        course.Credits = credits;
+
+        _courseRepository.UpdateCourse(course);
+    }
+
+    // Xóa khóa học
+    public void DeleteCourse(int courseId)
+    {
+        var course = _courseRepository.GetCourseById(courseId);
+
+        if (course == null)
+        {
+            throw new KeyNotFoundException("Không tìm thấy khóa học.");
+        }
         if (_enrollmentRepository.HasEnrollmentsForCourse(courseId))
         {
-            return new ApiResponse<string>(1, $"Không thể xóa khóa học vì có sinh viên đã đăng ký.");
+            throw new BadRequestException("Không thể xóa khóa học vì có sinh viên đã đăng ký.");
         }
-
-        try
-        {
-            _courseRepository.RemoveCourse(course);
-            return new ApiResponse<string>(0, "Xóa khóa học thành công.");
-        }
-        catch (Exception ex)
-        {
-            return new ApiResponse<string>(1, ex.Message);
-        }
+        _courseRepository.DeleteCourse(course);
     }
 }

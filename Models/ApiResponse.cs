@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 public class ApiResponse<T>
 {
-    public int ErrorCode { get; set; }
+    public int Status { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Description { get; set; }
@@ -10,16 +10,16 @@ public class ApiResponse<T>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public T Data { get; set; }
 
-    public ApiResponse(int errorCode, T data)
+    public ApiResponse(int status, T data)
     {
-        ErrorCode = errorCode;
+        Status = status;
         Data = data;
-        Description = string.Empty;
+        Description = null;
     }
 
-    public ApiResponse(int errorCode, string description)
+    public ApiResponse(int status, string description)
     {
-        ErrorCode = errorCode;
+        Status = status;
         Description = description;
         Data = default!;
     }

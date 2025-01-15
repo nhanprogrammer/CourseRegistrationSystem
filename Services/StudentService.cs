@@ -1,36 +1,123 @@
-public class StudentService
+using CourseRegistrationSystem.Repositories;
+using CourseSystem.Helpers;
+using System.Collections.Generic;
+
+namespace CourseRegistrationSystem.Services
 {
-    private readonly StudentRepository _studentRepository;
-    private readonly EnrollmentRepository _enrollmentRepository;
-    public StudentService(StudentRepository studentRepository, EnrollmentRepository enrollmentRepository)
+    public class StudentService
     {
-        _studentRepository = studentRepository;
-        _enrollmentRepository = enrollmentRepository;
-    }
+        private readonly StudentRepository _repository;
+        private readonly EnrollmentRepository _enrollmentRepository;
 
-    public ApiResponse<string> RemoveStudent(int studentId)
-    {
-        Console.WriteLine("Removing student with ID: " + studentId);
-        var student = _studentRepository.GetStudentById(studentId);
-        if (student == null)
+        public StudentService(StudentRepository repository)
         {
-            return new ApiResponse<string>(1, $"Sinh viên với ID {studentId} không tồn tại.");
+            _repository = repository;
         }
 
-        if (_enrollmentRepository.HasEnrollmentsForStudent(studentId))
+        public List<Student> GetAll()
         {
-            return new ApiResponse<string>(1, $"Không thể xóa sinh viên vì có khóa học đã đăng ký.");
+            return _repository.GetAllStudents();
         }
 
-        try
+        // public ApiResponse<Student> GetById(int id)
+        // {
+        //     try
+        //     {
+        //         var student = _repository.GetStudentById(id);
+        //         if (student == null)
+        //         {
+        //             return new ApiResponse<Student>(0, "Không tìm thấy sinh viên");
+        //         }
+        //         return new ApiResponse<Student>(0, student);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return new ApiResponse<Student>(1, ex.Message);
+        //     }
+        // }
+
+        public void Add(Student student)
         {
-            _studentRepository.RemoveStudent(student);
-            return new ApiResponse<string>(0, "Xóa sinh viên thành công.");
+            if (student == null)
+            {
+                throw new BadRequestException("Thông tin sinh viên không được rỗng.");
+            }
+
+            if (student.EnrollmentDate <= DateTime.Now)
+            {
+                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+            }
+
+            _repository.AddStudent(student);
         }
-        catch (Exception ex)
+
+
+        public void Update(int id, Student student)
         {
-            return new ApiResponse<string>(1, ex.Message);
+            if (student == null)
+            {
+                throw new BadRequestException("Dữ liệu không được rỗng.");
+            }
+
+            if (id != student.ID)
+            {
+                throw new BadRequestException("ID không khớp.");
+            }
+
+            if (student.EnrollmentDate <= DateTime.Now)
+            {
+                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+            }
+
+            var existingStudent = _repository.GetStudentById(id);
+            if (existingStudent == null)
+            {
+                throw new NotFoundException("Không tìm thấy sinh viên.");
+            }
+
+            _repository.DetachStudent(existingStudent);
+            _repository.UpdateStudent(student);
+
+            // try
+            // {
+            //     // Tải đối tượng từ DB theo ID
+            //     var existingStudent = _repository.GetStudentById(student.ID);
+
+            //     // Nếu không tìm thấy sinh viên, trả về lỗi
+            //     if (existingStudent == null)
+            //     {
+            //         return new ApiResponse<string>(404, "Không tìm thấy sinh viên");
+            //     }
+
+            //     // Cập nhật các giá trị cần thiết
+            //     existingStudent.LastName = student.LastName;
+            //     existingStudent.FirstMidName = student.FirstMidName;
+            //     existingStudent.EnrollmentDate = student.EnrollmentDate;
+
+            //     // Cập nhật đối tượng trong DbContext
+            //     _repository.UpdateStudent(existingStudent);
+            //     return new ApiResponse<string>(0, "Cập nhật sinh viên thành công");
+            // }
+            // catch (Exception ex)
+            // {
+            //     return new ApiResponse<string>(500, ex.Message);
+            // }
         }
+
+        public void Delete(int id)
+        {
+            var student = _repository.GetStudentById(id);
+            if (student == null)
+            {
+                throw new NotFoundException("Không tìm thấy sinh viên.");
+            }
+            if (_enrollmentRepository.HasEnrollmentsForStudent(id))
+            {
+                throw new BadRequestException("Không thể xóa sinh viên vì có khóa học đã đăng ký.");
+            }
+
+            _repository.DeleteStudent(id);
+        }
+
     }
 }
-

@@ -20,11 +20,12 @@ public class Student
     // [RegularExpression(@"^[A-Z]+[a-zA-Z]*$", ErrorMessage = "Tên phải bắt đầu bằng chữ cái viết hoa.")]
     public string? FirstMidName { get; set; }
 
-    // [Display(Name = "Ngày nhập học")]
-    // [DataType(DataType.Date)]
-    // [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Ngày nhập học")]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime EnrollmentDate { get; set; }
 
 	//Mối quan hệ 1-n: Một sinh viên có thể đăng ký nhiều lớp học
 	public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+
 }
