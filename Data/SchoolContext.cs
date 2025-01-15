@@ -5,6 +5,20 @@ public class SchoolContext : DbContext
     public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
     {
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Enrollment>()
+            .HasOne(e => e.Course) // Mối quan hệ n-1 với Course
+            .WithMany(c => c.Enrollments) // Một Course có nhiều Enrollment
+            .HasForeignKey(e => e.CourseID)
+            .OnDelete(DeleteBehavior.Restrict); // Ngăn xóa Course nếu có Enrollment
+
+        modelBuilder.Entity<Enrollment>()
+            .HasOne(e => e.Student) // Mối quan hệ n-1 với Student
+            .WithMany(s => s.Enrollments) // Một Student có nhiều Enrollment
+            .HasForeignKey(e => e.StudentID)
+            .OnDelete(DeleteBehavior.Restrict); // Ngăn xóa Student nếu có Enrollment
+    }
 
     public DbSet<Course> Courses { get; set; }
     public DbSet<Enrollment> Enrollments { get; set; }

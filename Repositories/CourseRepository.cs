@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore;
 public class CourseRepository
 {
     private readonly SchoolContext _context;
-
-    public CourseRepository(SchoolContext context)
+    private readonly EnrollmentRepository _enrollmentRepository;
+    public CourseRepository(SchoolContext context, EnrollmentRepository enrollmentRepository)
     {
         _context = context;
+        _enrollmentRepository = enrollmentRepository;
     }
     public Course GetCourseById(int courseId)
     {
         return _context.Courses
-                       .FromSqlRaw("SELECT * FROM Courses WHERE CourseID = {0}", courseId)
-                       .FirstOrDefault() ?? new Course();
+                       .FirstOrDefault(c => c.CourseID == courseId);
     }
 
     public List<Course> GetAllCourses()
@@ -20,7 +20,7 @@ public class CourseRepository
         return _context.Courses.ToList();
     }
 
-     public void AddCourse(Course course)
+    public void AddCourse(Course course)
     {
         if (course == null)
         {
@@ -30,4 +30,11 @@ public class CourseRepository
         _context.Courses.Add(course);
         _context.SaveChanges();
     }
+
+     public void RemoveCourse(Course course)
+    {
+        _context.Courses.Remove(course);
+        _context.SaveChanges();
+    }
+
 }
