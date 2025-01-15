@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CourseRegistrationSystem.Repositories;
 using CourseRegistrationSystem.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,18 @@ builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<EnrollmentRepository>();
 builder.Services.AddScoped<EnrollmentService>();
 builder.Services.AddScoped<StudentRepository>();
-builder.Services.AddControllers();
+builder.Services.AddScoped<StudentService>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Đăng ký converter cho DateTime
+        options.JsonSerializerOptions.Converters.Add(new JsonDateTimeConverter("yyyy-MM-dd"));
+
+        // Các cấu hình khác
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
