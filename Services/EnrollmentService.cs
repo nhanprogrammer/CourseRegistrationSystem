@@ -1,4 +1,5 @@
-﻿using CourseRegistrationSystem.Repositories;
+﻿using CourseRegistrationSystem.Dtos;
+using CourseRegistrationSystem.Repositories;
 using CourseSystem.Helpers;
 
 namespace CourseRegistrationSystem.Services;
@@ -18,7 +19,7 @@ public class EnrollmentService
         _studentRepository = studentRepository;
     }
 
-    public Enrollment GetEnrollmentById(int id)
+    public EnrollmentDto GetEnrollmentById(int id)
     {
         Enrollment enrollment = _enrollmentRepository.GetEnrollmentById(id);
 
@@ -27,10 +28,27 @@ public class EnrollmentService
             throw new NotFoundException("Không tìm thấy thông tin ghi danh khóa học");
         }
 
-        return enrollment;
+        return new EnrollmentDto()
+        {
+            EnrollmentID = enrollment.EnrollmentID,
+            Grade = enrollment.Grade,
+            Student = new StudentDto()
+            {
+                ID = enrollment.Student.ID,
+                LastName = enrollment.Student.LastName,
+                FirstMidName = enrollment.Student.FirstMidName,
+                EnrollmentDate = enrollment.Student.EnrollmentDate
+            },
+            Course = new CourseDto()
+            {
+                CourseID = enrollment.Course.CourseID,
+                Title = enrollment.Course.Title,
+                Credits = enrollment.Course.Credits
+            },
+        };
     }
 
-    public List<Enrollment> GetAllEnrollments()
+    public List<EnrollmentDto> GetAllEnrollments()
     {
         return _enrollmentRepository.GetAllEnrollments();
     }
@@ -66,7 +84,7 @@ public class EnrollmentService
 
         _enrollmentRepository.AddEnrollment(enrollmentToAdd);
     }
-    
+
     public void UpdateEnrollment(Enrollment enrollment)
     {
         if (enrollment == null)
@@ -80,20 +98,20 @@ public class EnrollmentService
         {
             throw new NotFoundException("Thông tin ghi danh khóa học không tồn tại.");
         }
-        
+
         enrollmentExit.Grade = enrollment.Grade ?? "";
 
         _enrollmentRepository.UpdateEnrollment(enrollmentExit);
     }
 
-        public void DeleteEnrollment(int id)
+    public void DeleteEnrollment(int id)
+    {
+        var enrollment = _enrollmentRepository.GetEnrollmentById(id);
+        if (enrollment == null)
         {
-            var enrollment = _enrollmentRepository.GetEnrollmentById(id);
-            if (enrollment == null)
-            {
-                throw new NotFoundException("Không tìm thấy thông tin ghi danh.");
-            }
-            _enrollmentRepository.RemoveEnrollment(enrollment);
+            throw new NotFoundException("Không tìm thấy thông tin ghi danh.");
         }
 
+        _enrollmentRepository.RemoveEnrollment(enrollment);
+    }
 }

@@ -21,10 +21,11 @@ namespace CourseRegistrationSystem.Controllers
             try
             {
                 var response = _service.GetAll();
-                if (response == null || response.Count == 0)
+                if (response.Count == 0)
                 {
-                    return StatusCode(404, new { Status = 0, Description = "Không tìm thấy sinh viên." });
+                    return NotFound(new { Status = 0, Description = "Không tìm thấy sinh viên." });
                 }
+
                 return Ok(new { Status = 0, Description = response });
             }
             catch (Exception e)
@@ -58,7 +59,7 @@ namespace CourseRegistrationSystem.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
             }
         }
 
@@ -81,7 +82,7 @@ namespace CourseRegistrationSystem.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
             }
         }
 
@@ -105,7 +106,8 @@ namespace CourseRegistrationSystem.Controllers
         // }
 
         [HttpDelete]
-        public IActionResult Delete([FromQuery] int id)
+        [Route("{id:int}")]
+        public IActionResult Delete(int id)
         {
             try
             {
@@ -122,9 +124,9 @@ namespace CourseRegistrationSystem.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+                Console.WriteLine(ex);
+                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
             }
         }
-
     }
 }

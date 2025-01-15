@@ -19,15 +19,17 @@ public class CourseController : ControllerBase
         try
         {
             var courses = _courseService.GetCourses();
+
+            if (courses.Count() <= 0)
+            {
+                return NotFound(new { Status = 0, Message = "Không tìm thấy khóa học" });
+            }
+
             return Ok(new { Status = 0, Data = courses });
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(new { Status = 0, Message = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
         }
     }
 
@@ -46,7 +48,7 @@ public class CourseController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
         }
     }
 
@@ -69,7 +71,7 @@ public class CourseController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
         }
     }
 
@@ -92,7 +94,8 @@ public class CourseController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
+            Console.Write(ex);
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
         }
     }
 }

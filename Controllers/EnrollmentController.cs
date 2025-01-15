@@ -21,7 +21,7 @@ public class EnrollmentController : ControllerBase
     {
         try
         {
-            Enrollment enrollment = _enrollmentService.GetEnrollmentById(id);
+            var enrollment = _enrollmentService.GetEnrollmentById(id);
 
             return Ok(new { Status = 0, Description = enrollment });
         }
@@ -31,7 +31,7 @@ public class EnrollmentController : ControllerBase
         }
         catch (Exception e)
         {
-            return StatusCode(500, new { Status = 1, Description = "Lỗi máy chủ." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
@@ -41,15 +41,16 @@ public class EnrollmentController : ControllerBase
         try
         {
             var enrollments = _enrollmentService.GetAllEnrollments();
-            if (enrollments == null || enrollments.Count == 0)
+            if (enrollments.Count == 0)
             {
-                return StatusCode(404, new { Status = 0, Description = "Không tìm thấy đăng ký khóa học." });
+                return NotFound(new { Status = 0, Description = "Không tìm thấy thông tin ghi danh khóa học." });
             }
+
             return Ok(new { Status = 0, Description = enrollments });
         }
         catch (Exception e)
         {
-            return StatusCode(500, new { Status = 1, Description = "Lỗi máy chủ." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
@@ -75,7 +76,7 @@ public class EnrollmentController : ControllerBase
         }
         catch (Exception e)
         {
-            return StatusCode(500, new { Status = 1, Description = "Lỗi máy chủ." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
@@ -97,25 +98,26 @@ public class EnrollmentController : ControllerBase
         }
         catch (Exception e)
         {
-            return StatusCode(500, new { Status = 1, Description = "Lỗi máy chủ." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
     [HttpDelete]
-        public IActionResult DeleteEnrollment([FromQuery] int id)
+    [Route("{id:int}")]
+    public IActionResult DeleteEnrollment(int id)
+    {
+        try
         {
-            try
-            {
-                _enrollmentService.DeleteEnrollment(id);
-                return Ok(new { Status = 0, Message = "Xóa thông tin ghi danh thành công." });
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(new { Status = 0, Message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
-            }
+            _enrollmentService.DeleteEnrollment(id);
+            return Ok(new { Status = 0, Message = "Xóa thông tin ghi danh thành công." });
         }
+        catch (NotFoundException ex)
+        {
+            return NotFound(new { Status = 0, Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+        }
+    }
 }

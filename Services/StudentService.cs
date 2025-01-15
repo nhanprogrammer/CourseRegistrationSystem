@@ -9,9 +9,10 @@ namespace CourseRegistrationSystem.Services
         private readonly StudentRepository _repository;
         private readonly EnrollmentRepository _enrollmentRepository;
 
-        public StudentService(StudentRepository repository)
+        public StudentService(StudentRepository repository, EnrollmentRepository enrollmentRepository)
         {
             _repository = repository;
+            _enrollmentRepository = enrollmentRepository;
         }
 
         public List<Student> GetAll()
@@ -107,6 +108,7 @@ namespace CourseRegistrationSystem.Services
         public void Delete(int id)
         {
             var student = _repository.GetStudentById(id);
+            
             if (student == null)
             {
                 throw new NotFoundException("Không tìm thấy sinh viên.");

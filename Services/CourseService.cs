@@ -27,12 +27,12 @@ public class CourseService
     {
         if (string.IsNullOrWhiteSpace(title))
         {
-            throw new ArgumentException("Tiêu đề khóa học không được để trống.");
+            throw new BadRequestException("Tiêu đề khóa học không được để trống.");
         }
 
         if (credits <= 0 || credits > 10)
         {
-            throw new ArgumentException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
+            throw new BadRequestException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
         }
 
         var newCourse = new Course
@@ -51,17 +51,17 @@ public class CourseService
 
         if (course == null)
         {
-            throw new KeyNotFoundException("Không tìm thấy khóa học.");
+            throw new NotFoundException("Không tìm thấy khóa học.");
         }
 
         if (string.IsNullOrWhiteSpace(title))
         {
-            throw new ArgumentException("Tiêu đề khóa học không được để trống.");
+            throw new BadRequestException("Tiêu đề khóa học không được để trống.");
         }
 
         if (credits <= 0 || credits > 10)
         {
-            throw new ArgumentException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
+            throw new BadRequestException("Số tín chỉ phải nằm trong khoảng từ 1 đến 10.");
         }
 
         course.Title = title;
@@ -77,7 +77,7 @@ public class CourseService
 
         if (course == null)
         {
-            throw new KeyNotFoundException("Không tìm thấy khóa học.");
+            throw new NotFoundException("Không tìm thấy khóa học.");
         }
         if (_enrollmentRepository.HasEnrollmentsForCourse(courseId))
         {

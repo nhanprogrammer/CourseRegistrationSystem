@@ -1,4 +1,7 @@
-﻿namespace CourseRegistrationSystem.Repositories;
+﻿using CourseRegistrationSystem.Dtos;
+using Microsoft.EntityFrameworkCore;
+
+namespace CourseRegistrationSystem.Repositories;
 
 public class EnrollmentRepository
 {
@@ -11,12 +14,32 @@ public class EnrollmentRepository
 
     public Enrollment GetEnrollmentById(int id)
     {
-        return _schoolContext.Enrollments.FirstOrDefault(o => o.EnrollmentID == id);
+        return _schoolContext.Enrollments
+            .Include(e => e.Student)
+            .Include(e => e.Course)
+            .FirstOrDefault(o => o.EnrollmentID == id);
     }
 
-    public List<Enrollment> GetAllEnrollments()
+    public List<EnrollmentDto> GetAllEnrollments()
     {
-        return _schoolContext.Enrollments.ToList();
+        return _schoolContext.Enrollments.Select(enrollment => new EnrollmentDto()
+        {
+            EnrollmentID = enrollment.EnrollmentID,
+            Grade = enrollment.Grade,
+            Student = new StudentDto // Sử dụng StudentDto
+            {
+                ID = enrollment.Student.ID,
+                LastName = enrollment.Student.LastName,
+                FirstMidName = enrollment.Student.FirstMidName,
+                EnrollmentDate = enrollment.Student.EnrollmentDate
+            },
+            Course = new CourseDto // Sử dụng CourseDto
+            {
+                CourseID = enrollment.Course.CourseID,
+                Title = enrollment.Course.Title,
+                Credits = enrollment.Course.Credits
+            }
+        }).ToList();
     }
 
     public void AddEnrollment(Enrollment enrollment)
@@ -24,17 +47,17 @@ public class EnrollmentRepository
         _schoolContext.Enrollments.Add(enrollment);
         _schoolContext.SaveChanges();
     }
-    
+
     public void UpdateEnrollment(Enrollment enrollment)
     {
         _schoolContext.Enrollments.Update(enrollment);
         _schoolContext.SaveChanges();
     }
-    
+
     public bool isStudentRegistered(int studentId, int courseId)
     {
         Enrollment isRegistered = _schoolContext.Enrollments
-                                        .FirstOrDefault(o => o.StudentID == studentId && o.CourseID == courseId);
+            .FirstOrDefault(o => o.StudentID == studentId && o.CourseID == courseId);
 
         return isRegistered != null;
     }
@@ -54,5 +77,4 @@ public class EnrollmentRepository
         _schoolContext.Enrollments.Remove(enrollment);
         _schoolContext.SaveChanges();
     }
-
 }

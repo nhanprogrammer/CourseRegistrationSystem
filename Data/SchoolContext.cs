@@ -5,6 +5,7 @@ public class SchoolContext : DbContext
     public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
     {
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Enrollment>()
@@ -18,15 +19,6 @@ public class SchoolContext : DbContext
             .WithMany(s => s.Enrollments) // Một Student có nhiều Enrollment
             .HasForeignKey(e => e.StudentID)
             .OnDelete(DeleteBehavior.Restrict); // Ngăn xóa Student nếu có Enrollment
-    }
-
-    public DbSet<Course> Courses { get; set; }
-    public DbSet<Enrollment> Enrollments { get; set; }
-    public DbSet<Student> Students { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Student>()
             .Property(s => s.EnrollmentDate)
@@ -35,6 +27,10 @@ public class SchoolContext : DbContext
                 v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
             );
     }
+
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Enrollment> Enrollments { get; set; }
+    public DbSet<Student> Students { get; set; }
 
     public override int SaveChanges()
     {

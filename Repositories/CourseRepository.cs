@@ -15,10 +15,7 @@ public class CourseRepository
     public Course GetCourseById(int courseId)
     {
         var course = _context.Courses.FirstOrDefault(c => c.CourseID == courseId);
-        if (course == null)
-        {
-            throw new KeyNotFoundException("Không tìm thấy khóa học với ID: " + courseId);
-        }
+
         return course;
     }
     
