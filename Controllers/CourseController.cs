@@ -22,14 +22,14 @@ public class CourseController : ControllerBase
 
             if (courses.Count() <= 0)
             {
-                return NotFound(new { Status = 0, Message = "Không tìm thấy khóa học" });
+                return NotFound(new { Status = 0, Description = "Không tìm thấy khóa học" });
             }
 
-            return Ok(new { Status = 0, Data = courses });
+            return Ok(new { Status = 0, Description = courses });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
@@ -40,38 +40,38 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.CreateNewCourse(newCourse.Title, newCourse.Credits ?? 0);
-            return Ok(new { Status = 0, Message = "Tạo khóa học thành công." });
+            return Ok(new { Status = 0, Description = "Tạo khóa học thành công." });
         }
         catch (BadRequestException ex)
         {
-            return BadRequest(new { Status = 1, Message = ex.Message });
+            return BadRequest(new { Status = 1, Description = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
     // Cập nhật khóa học
-    [HttpPut("courses/{courseId}")]
-    public IActionResult UpdateCourse(int courseId, [FromBody] Course updatedCourse)
+    [HttpPut("courses")]
+    public IActionResult UpdateCourse([FromBody] Course updatedCourse)
     {
         try
         {
-            _courseService.UpdateCourse(courseId, updatedCourse.Title, updatedCourse.Credits ?? 0);
-            return Ok(new { Status = 0, Message = "Cập nhật khóa học thành công." });
+            _courseService.UpdateCourse(updatedCourse.CourseID ?? -1, updatedCourse.Title, updatedCourse.Credits ?? 0);
+            return Ok(new { Status = 0, Description = "Cập nhật khóa học thành công." });
         }
         catch (BadRequestException ex)
         {
-            return BadRequest(new { Status = 1, Message = ex.Message });
+            return BadRequest(new { Status = 1, Description = ex.Message });
         }
         catch (NotFoundException ex)
         {
-            return NotFound(new { Status = 0, Message = ex.Message });
+            return NotFound(new { Status = 0, Description = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 
@@ -82,20 +82,20 @@ public class CourseController : ControllerBase
         try
         {
             _courseService.DeleteCourse(courseId);
-            return Ok(new { Status = 0, Message = "Xóa khóa học thành công." });
+            return Ok(new { Status = 0, Description = "Xóa khóa học thành công." });
         }
         catch (NotFoundException ex)
         {
-            return NotFound(new { Status = 0, Message = ex.Message });
+            return NotFound(new { Status = 0, Description = ex.Message });
         }
         catch (BadRequestException ex)
         {
-            return BadRequest(new { Status = 1, Message = ex.Message });
+            return BadRequest(new { Status = 1, Description = ex.Message });
         }
         catch (Exception ex)
         {
             Console.Write(ex);
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 }

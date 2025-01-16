@@ -1,6 +1,9 @@
 using CourseRegistrationSystem.Repositories;
 using CourseSystem.Helpers;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using CourseRegistrationSystem.Dtos;
 
 namespace CourseRegistrationSystem.Services
 {
@@ -20,99 +23,144 @@ namespace CourseRegistrationSystem.Services
             return _repository.GetAllStudents();
         }
 
-        // public ApiResponse<Student> GetById(int id)
-        // {
-        //     try
-        //     {
-        //         var student = _repository.GetStudentById(id);
-        //         if (student == null)
-        //         {
-        //             return new ApiResponse<Student>(0, "Không tìm thấy sinh viên");
-        //         }
-        //         return new ApiResponse<Student>(0, student);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return new ApiResponse<Student>(1, ex.Message);
-        //     }
-        // }
-
-        public void Add(Student student)
+        public void Add(StudentsDTO studentDto)
         {
-            if (student == null)
+            if (studentDto == null)
             {
                 throw new BadRequestException("Thông tin sinh viên không được rỗng.");
             }
 
-            if (student.EnrollmentDate <= DateTime.Now)
+
+            if (string.IsNullOrWhiteSpace(studentDto.LastName))
             {
-                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+                throw new BadRequestException("Họ không được để trống.");
             }
+            if (string.IsNullOrWhiteSpace(studentDto.FirstMidName))
+            {
+                throw new BadRequestException("Tên không được để trống.");
+            }
+
+
+            var vietnameseNameRegex = @"^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơưĂẮẰẲẴẶÂẤẦẨẪẬÊẾỀỂỄỆÔỐỒỔỖỘƠỚỜỞỠỢƯỨỪỬỮỰýỳỵỷỹÝỲỴỶỸ\s]+$";
+            if (!Regex.IsMatch(studentDto.LastName, vietnameseNameRegex))
+            {
+                throw new BadRequestException("Họ phải là ký tự hợp lệ theo định dạng tiếng Việt.");
+            }
+            if (!Regex.IsMatch(studentDto.FirstMidName, vietnameseNameRegex))
+            {
+                throw new BadRequestException("Tên phải là ký tự hợp lệ theo định dạng tiếng Việt.");
+            }
+
+
+            DateTime? parsedEnrollmentDate = null;
+            if (!string.IsNullOrWhiteSpace(studentDto.EnrollmentDate))
+            {
+                var dateFormat = "yyyy-MM-dd";
+                if (!DateTime.TryParseExact(studentDto.EnrollmentDate, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime tempDate))
+                {
+                    throw new BadRequestException("Ngày nhập học phải có định dạng 'yyyy-MM-dd'.");
+                }
+
+                if (tempDate <= DateTime.Now.Date)
+                {
+                    throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+                }
+
+                parsedEnrollmentDate = tempDate;
+            }
+
+
+            var student = new Student
+            {
+                LastName = studentDto.LastName,
+                FirstMidName = studentDto.FirstMidName,
+                EnrollmentDate = parsedEnrollmentDate
+            };
+
 
             _repository.AddStudent(student);
         }
 
 
-        public void Update(Student student)
+        public void Update(StudentsDTO studentDto)
         {
-            if (student == null)
+            if (studentDto == null)
             {
-                throw new BadRequestException("Dữ liệu không được rỗng.");
+                throw new BadRequestException("Thông tin sinh viên không được rỗng.");
             }
 
-            if (student.EnrollmentDate <= DateTime.Now)
+
+            if (string.IsNullOrWhiteSpace(studentDto.LastName))
             {
-                throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+                throw new BadRequestException("Họ không được để trống.");
+            }
+            if (string.IsNullOrWhiteSpace(studentDto.FirstMidName))
+            {
+                throw new BadRequestException("Tên không được để trống.");
             }
 
-            var existingStudent = _repository.GetStudentById(student.ID);
+
+            var vietnameseNameRegex = @"^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơưĂẮẰẲẴẶÂẤẦẨẪẬÊẾỀỂỄỆÔỐỒỔỖỘƠỚỜỞỠỢƯỨỪỬỮỰýỳỵỷỹÝỲỴỶỸ\s]+$";
+            if (!Regex.IsMatch(studentDto.LastName, vietnameseNameRegex))
+            {
+                throw new BadRequestException("Họ phải là ký tự hợp lệ theo định dạng tiếng Việt.");
+            }
+            if (!Regex.IsMatch(studentDto.FirstMidName, vietnameseNameRegex))
+            {
+                throw new BadRequestException("Tên phải là ký tự hợp lệ theo định dạng tiếng Việt.");
+            }
+
+
+            DateTime? parsedEnrollmentDate = null;
+            if (!string.IsNullOrWhiteSpace(studentDto.EnrollmentDate))
+            {
+                var dateFormat = "yyyy-MM-dd";
+                if (!DateTime.TryParseExact(studentDto.EnrollmentDate, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime tempDate))
+                {
+                    throw new BadRequestException("Ngày nhập học phải có định dạng 'yyyy-MM-dd'.");
+                }
+
+                if (tempDate <= DateTime.Now.Date)
+                {
+                    throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
+                }
+
+                parsedEnrollmentDate = tempDate;
+            }
+
+            var existingStudent = studentDto.ID.HasValue ? _repository.GetStudentById(studentDto.ID.Value) : null;
+
             if (existingStudent == null)
             {
                 throw new NotFoundException("Không tìm thấy sinh viên.");
             }
 
+
+            var student = new Student
+            {
+                ID = studentDto.ID,
+                LastName = studentDto.LastName,
+                FirstMidName = studentDto.FirstMidName,
+                EnrollmentDate = parsedEnrollmentDate
+            };
+
+
             _repository.DetachStudent(existingStudent);
             _repository.UpdateStudent(student);
-
-            // try
-            // {
-            //     // Tải đối tượng từ DB theo ID
-            //     var existingStudent = _repository.GetStudentById(student.ID);
-
-            //     // Nếu không tìm thấy sinh viên, trả về lỗi
-            //     if (existingStudent == null)
-            //     {
-            //         return new ApiResponse<string>(404, "Không tìm thấy sinh viên");
-            //     }
-
-            //     // Cập nhật các giá trị cần thiết
-            //     existingStudent.LastName = student.LastName;
-            //     existingStudent.FirstMidName = student.FirstMidName;
-            //     existingStudent.EnrollmentDate = student.EnrollmentDate;
-
-            //     // Cập nhật đối tượng trong DbContext
-            //     _repository.UpdateStudent(existingStudent);
-            //     return new ApiResponse<string>(0, "Cập nhật sinh viên thành công");
-            // }
-            // catch (Exception ex)
-            // {
-            //     return new ApiResponse<string>(500, ex.Message);
-            // }
         }
+
 
         public void Delete(int id)
         {
             var student = _repository.GetStudentById(id);
-            
             if (student == null)
             {
-                throw new NotFoundException("Không tìm thấy sinh viên.");
+                throw new KeyNotFoundException("Không tìm thấy sinh viên.");
             }
             if (_enrollmentRepository.HasEnrollmentsForStudent(id))
             {
                 throw new BadRequestException("Không thể xóa sinh viên vì có khóa học đã đăng ký.");
             }
-
             _repository.DeleteStudent(id);
         }
 

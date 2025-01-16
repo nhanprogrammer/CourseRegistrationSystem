@@ -26,12 +26,11 @@ public class SchoolContext : DbContext
             .OnDelete(DeleteBehavior.Restrict); // Ngăn xóa Student nếu có Enrollment
 
         modelBuilder.Entity<Student>()
-            .Property(s => s.EnrollmentDate)
-            .HasConversion(
-                v => v,
-                v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
-            );
-
+          .Property(s => s.EnrollmentDate)
+          .HasConversion(
+              v => v.HasValue ? v.Value : default(DateTime),  // Chuyển đổi từ DateTime? thành DateTime
+              v => (DateTime?)DateTime.SpecifyKind(v, DateTimeKind.Utc)  // Chuyển đổi ngược lại từ DateTime thành DateTime?
+          );
     }
 
     public override int SaveChanges()
@@ -40,7 +39,11 @@ public class SchoolContext : DbContext
         {
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
             {
-                entry.Entity.EnrollmentDate = DateTime.SpecifyKind(entry.Entity.EnrollmentDate, DateTimeKind.Utc);
+                // Kiểm tra nếu EnrollmentDate có giá trị không phải null
+                if (entry.Entity.EnrollmentDate.HasValue)
+                {
+                    entry.Entity.EnrollmentDate = DateTime.SpecifyKind(entry.Entity.EnrollmentDate.Value, DateTimeKind.Utc);
+                }
             }
         }
 

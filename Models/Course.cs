@@ -5,7 +5,7 @@ public class Course
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CourseID { get; set; }
+    public int? CourseID { get; set; }
 
     // [Required(ErrorMessage = "Vui lòng nhập tiêu đề khóa học.")]
     // [StringLength(100, MinimumLength = 5, ErrorMessage = "Tiêu đề phải có độ dài từ 5 đến 100 ký tự.")]

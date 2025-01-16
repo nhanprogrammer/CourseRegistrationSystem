@@ -1,3 +1,4 @@
+using CourseRegistrationSystem.Dtos;
 using CourseRegistrationSystem.Services;
 using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,10 @@ namespace CourseRegistrationSystem.Controllers
             try
             {
                 var response = _service.GetAll();
-                if (response.Count == 0)
+                if (response == null || response.Count == 0)
                 {
-                    return NotFound(new { Status = 0, Description = "Không tìm thấy sinh viên." });
+                    return StatusCode(404, new { Status = 0, Description = "Không tìm thấy sinh viên." });
                 }
-
                 return Ok(new { Status = 0, Description = response });
             }
             catch (Exception e)
@@ -34,99 +34,73 @@ namespace CourseRegistrationSystem.Controllers
             }
         }
 
-        // [HttpGet("{id}")]
-        // public IActionResult GetById(int id)
-        // {
-        //     var response = _service.GetById(id);
-        //     return StatusCode(response.Status, response);
-        // }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Student student)
+        public IActionResult Create([FromBody] StudentsDTO student)
         {
             try
             {
                 _service.Add(student);
-                return Ok(new { Status = 0, Message = "Thêm sinh viên thành công." });
+                return Ok(new { Status = 0, Description = "Thêm sinh viên thành công." });
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(new { Status = 1, Message = ex.Message });
+                return BadRequest(new { Status = 1, Description = ex.Message });
             }
             catch (NotFoundException ex)
             {
-                return NotFound(new { Status = 0, Message = ex.Message });
+                return NotFound(new { Status = 0, Description = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+                return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
             }
         }
 
 
         [HttpPut]
-        public IActionResult Update([FromBody] Student student)
+        public IActionResult Update([FromBody] StudentsDTO student)
         {
             try
             {
                 _service.Update(student);
-                return Ok(new { Status = 0, Message = "Cập nhật sinh viên thành công." });
+                return Ok(new { Status = 0, Description = "Cập nhật sinh viên thành công." });
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(new { Status = 1, Message = ex.Message });
+                return BadRequest(new { Status = 1, Description = ex.Message });
             }
             catch (NotFoundException ex)
             {
-                return NotFound(new { Status = 0, Message = ex.Message });
+                return NotFound(new { Status = 0, Description = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+                return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống."});
             }
         }
 
-        // [HttpPut("{id}")]
-        // public IActionResult Update(int id, [FromBody] Student student)
-        // {
-        //     if (!ModelState.IsValid) return BadRequest();
-
-        //     // Kiểm tra nếu sinh viên tồn tại
-        //     var existingStudent = _service.GetById(id);
-        //     if (existingStudent == null)
-        //         return NotFound();
-
-        //     // Cập nhật thông tin sinh viên
-        //     existingStudent.LastName = student.LastName;
-        //     existingStudent.FirstMidName = student.FirstMidName;
-        //     existingStudent.EnrollmentDate = student.EnrollmentDate;
-
-        //     _service.Update(existingStudent);
-        //     return NoContent(); // Trả về 204 khi thành công
-        // }
-
-        [HttpDelete]
-        [Route("{id:int}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok(new { Status = 0, Message = "Xóa sinh viên thành công." });
+                return Ok(new { Status = 0, Description = "Xóa sinh viên thành công." });
             }
             catch (NotFoundException ex)
             {
-                return NotFound(new { Status = 0, Message = ex.Message });
+                return NotFound(new { Status = 0, Description = ex.Message });
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(new { Status = 1, Message = ex.Message });
+                return BadRequest(new { Status = 1, Description = ex.Message });
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+                return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống."});
             }
         }
+
     }
 }

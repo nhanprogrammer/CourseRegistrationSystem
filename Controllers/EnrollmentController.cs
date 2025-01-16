@@ -1,3 +1,4 @@
+using CourseRegistrationSystem.Dtos;
 using CourseRegistrationSystem.Services;
 using CourseSystem.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +56,7 @@ public class EnrollmentController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddEnrollment([FromBody] Enrollment enrollment)
+    public IActionResult AddEnrollment([FromBody] EnrollmentCreateDto enrollment)
     {
         try
         {
@@ -109,15 +110,15 @@ public class EnrollmentController : ControllerBase
         try
         {
             _enrollmentService.DeleteEnrollment(id);
-            return Ok(new { Status = 0, Message = "Xóa thông tin ghi danh thành công." });
+            return Ok(new { Status = 0, Description = "Xóa thông tin ghi danh thành công." });
         }
         catch (NotFoundException ex)
         {
-            return NotFound(new { Status = 0, Message = ex.Message });
+            return NotFound(new { Status = 0, Description = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống." });
+            return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
         }
     }
 }

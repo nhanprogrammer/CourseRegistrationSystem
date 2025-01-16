@@ -1,4 +1,5 @@
-﻿﻿using Microsoft.EntityFrameworkCore;
+﻿﻿using CourseSystem.Helpers;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,9 @@ namespace CourseRegistrationSystem.Repositories
             if (student == null)
             {
                 throw new ArgumentNullException(nameof(student), "Sinh viên không tồn tại");
+            }
+            if(student.EnrollmentDate == null){
+                 throw new BadRequestException("Ngày nhập học không thể trống hoặc không hợp lệ.");
             }
 
             _schoolContext.Students.Add(student);

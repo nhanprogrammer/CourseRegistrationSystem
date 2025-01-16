@@ -60,17 +60,17 @@ public class EnrollmentService
             throw new BadRequestException("Thông tin ghi danh khóa học không được rỗng.");
         }
 
-        if (_courseRepository.GetSingleCourse(enrollment.CourseID) == null)
+        if (_courseRepository.GetSingleCourse(enrollment.CourseID ?? -1) == null)
         {
             throw new NotFoundException("Khóa học không tồn tại.");
         }
 
-        if (_studentRepository.GetStudentById(enrollment.StudentID) == null)
+        if (_studentRepository.GetStudentById(enrollment.StudentID ?? -1) == null)
         {
             throw new NotFoundException("Sinh viên không tồn tại.");
         }
 
-        if (_enrollmentRepository.isStudentRegistered(enrollment.StudentID, enrollment.CourseID))
+        if (_enrollmentRepository.isStudentRegistered(enrollment.StudentID ?? -1, enrollment.CourseID ?? -1))
         {
             throw new ConflictException("Sinh viên đã đăng ký khóa học này rồi.");
         }
@@ -92,7 +92,7 @@ public class EnrollmentService
             throw new BadRequestException("Thông tin ghi danh khóa học không được rỗng.");
         }
 
-        Enrollment enrollmentExit = _enrollmentRepository.GetEnrollmentById(enrollment.EnrollmentID);
+        Enrollment enrollmentExit = _enrollmentRepository.GetEnrollmentById(enrollment.EnrollmentID ?? -1);
 
         if (enrollmentExit == null)
         {
@@ -113,5 +113,36 @@ public class EnrollmentService
         }
 
         _enrollmentRepository.RemoveEnrollment(enrollment);
+    }
+    public void CreateEnrollment(EnrollmentCreateDto enrollment)
+    {
+        if (enrollment == null)
+        {
+            throw new BadRequestException("Thông tin ghi danh khóa học không được rỗng.");
+        }
+
+        if (_courseRepository.GetSingleCourse(enrollment.CourseID ?? -1) == null)
+        {
+            throw new NotFoundException("Khóa học không tồn tại.");
+        }
+
+        if (_studentRepository.GetStudentById(enrollment.StudentID ?? -1) == null)
+        {
+            throw new NotFoundException("Sinh viên không tồn tại.");
+        }
+
+        if (_enrollmentRepository.isStudentRegistered(enrollment.StudentID ?? -1, enrollment.CourseID ?? -1))
+        {
+            throw new ConflictException("Sinh viên đã đăng ký khóa học này rồi.");
+        }
+
+        var enrollmentToAdd = new Enrollment()
+        {
+            StudentID = enrollment.StudentID ?? -1,
+            CourseID = enrollment.CourseID ?? -1,
+            Grade = ""
+        };
+
+        _enrollmentRepository.AddEnrollment(enrollmentToAdd);
     }
 }

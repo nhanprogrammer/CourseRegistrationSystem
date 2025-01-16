@@ -1,42 +1,66 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\",
+  "WorkspaceRootPath": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\data\\schoolcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\data\\schoolcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:data\\schoolcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\converters\\jsondatetimeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:converters\\jsondatetimeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\dtos\\studentsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:dtos\\studentsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\dtos\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:dtos\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\controllers\\enrollmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:controllers\\enrollmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\dtos\\enrollmentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:dtos\\enrollmentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\alta\\g-bt-week2\\courseregistrationsystem\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|d:\\0_project manager\\courseregistrationsystem\\courseregistrationsystem\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29954460-DC50-4177-9D5F-D72421E42907}|CourseRegistrationSystem.csproj|solutionrelative:models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,123 +70,201 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Course.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Models\\Course.cs",
-              "RelativeDocumentMoniker": "Models\\Course.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Models\\Course.cs",
-              "RelativeToolTip": "Models\\Course.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "StudentsDTO.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\StudentsDTO.cs",
+              "RelativeDocumentMoniker": "Dtos\\StudentsDTO.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\StudentsDTO.cs",
+              "RelativeToolTip": "Dtos\\StudentsDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T03:13:25.852Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CourseDto.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Dtos\\CourseDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\CourseDto.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Dtos\\CourseDto.cs",
-              "RelativeToolTip": "Dtos\\CourseDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T03:13:02.9Z",
+              "WhenOpened": "2025-01-16T07:49:21.749Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "SchoolContext.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Data\\SchoolContext.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Data\\SchoolContext.cs",
               "RelativeDocumentMoniker": "Data\\SchoolContext.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Data\\SchoolContext.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Data\\SchoolContext.cs",
               "RelativeToolTip": "Data\\SchoolContext.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T03:06:10.092Z",
+              "WhenOpened": "2025-01-16T06:16:10.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "StudentController.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Controllers\\StudentController.cs",
-              "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Controllers\\StudentController.cs",
-              "RelativeToolTip": "Controllers\\StudentController.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAkwIIAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "JsonDateTimeConverter.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Converters\\JsonDateTimeConverter.cs",
+              "RelativeDocumentMoniker": "Converters\\JsonDateTimeConverter.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Converters\\JsonDateTimeConverter.cs",
+              "RelativeToolTip": "Converters\\JsonDateTimeConverter.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T03:04:27.948Z",
+              "WhenOpened": "2025-01-16T06:14:57.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "StudentService.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Services\\StudentService.cs",
-              "RelativeDocumentMoniker": "Services\\StudentService.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Services\\StudentService.cs",
-              "RelativeToolTip": "Services\\StudentService.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAkwEMAAABHAAAAAAAAAA==",
+              "Title": "StudentDto.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\StudentDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\StudentDto.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\StudentDto.cs",
+              "RelativeToolTip": "Dtos\\StudentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T03:03:39.197Z",
+              "WhenOpened": "2025-01-16T05:55:42.146Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CourseService.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Services\\CourseService.cs",
-              "RelativeDocumentMoniker": "Services\\CourseService.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Services\\CourseService.cs",
-              "RelativeToolTip": "Services\\CourseService.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "Controllers\\StudentController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T13:22:25.274Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "Controllers\\CourseController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T12:33:37.415Z",
+              "WhenOpened": "2025-01-16T05:42:50.783Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "StudentService.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\StudentService.cs",
+              "RelativeDocumentMoniker": "Services\\StudentService.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\StudentService.cs",
+              "RelativeToolTip": "Services\\StudentService.cs",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAgwKoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T12:18:19.031Z",
+              "WhenOpened": "2025-01-16T05:20:07.647Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\0_PROJECT MANAGER\\ALTA\\G-BT-WEEK2\\CourseRegistrationSystem\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
+              "Title": "Student.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Student.cs",
+              "RelativeDocumentMoniker": "Models\\Student.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Student.cs",
+              "RelativeToolTip": "Models\\Student.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:15:10.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EnrollmentService.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\EnrollmentService.cs",
+              "RelativeDocumentMoniker": "Services\\EnrollmentService.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\EnrollmentService.cs",
+              "RelativeToolTip": "Services\\EnrollmentService.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowJIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:17:55.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "EnrollmentCreateDto.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\EnrollmentCreateDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\EnrollmentCreateDto.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Dtos\\EnrollmentCreateDto.cs",
+              "RelativeToolTip": "Dtos\\EnrollmentCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:40:46.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Course.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Course.cs",
+              "RelativeDocumentMoniker": "Models\\Course.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Course.cs",
+              "RelativeToolTip": "Models\\Course.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:14:58.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EnrollmentController.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\EnrollmentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EnrollmentController.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\EnrollmentController.cs",
+              "RelativeToolTip": "Controllers\\EnrollmentController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:25:56.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "Models\\ApiResponse.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\ApiResponse.cs",
+              "RelativeToolTip": "Models\\ApiResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-01-15T12:10:32.736Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:14:57.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\CourseService.cs",
+              "RelativeDocumentMoniker": "Services\\CourseService.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Services\\CourseService.cs",
+              "RelativeToolTip": "Services\\CourseService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwBkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T04:04:52.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "Controllers\\CourseController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAqwDwAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T04:04:39.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Enrollment.cs",
+              "DocumentMoniker": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Enrollment.cs",
+              "RelativeDocumentMoniker": "Models\\Enrollment.cs",
+              "ToolTip": "D:\\0_PROJECT MANAGER\\courseregistrationsystem\\CourseRegistrationSystem\\Models\\Enrollment.cs",
+              "RelativeToolTip": "Models\\Enrollment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T05:13:23.926Z",
               "EditorCaption": ""
             }
           ]
