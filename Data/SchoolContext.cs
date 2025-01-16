@@ -5,9 +5,14 @@ public class SchoolContext : DbContext
     public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
     {
     }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Enrollment> Enrollments { get; set; }
+    public DbSet<Student> Students { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Enrollment>()
             .HasOne(e => e.Course) // Mối quan hệ n-1 với Course
             .WithMany(c => c.Enrollments) // Một Course có nhiều Enrollment
@@ -26,11 +31,8 @@ public class SchoolContext : DbContext
                 v => v,
                 v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
             );
-    }
 
-    public DbSet<Course> Courses { get; set; }
-    public DbSet<Enrollment> Enrollments { get; set; }
-    public DbSet<Student> Students { get; set; }
+    }
 
     public override int SaveChanges()
     {

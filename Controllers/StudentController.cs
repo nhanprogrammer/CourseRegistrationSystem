@@ -65,11 +65,11 @@ namespace CourseRegistrationSystem.Controllers
 
 
         [HttpPut]
-        public IActionResult Update([FromQuery] int id, [FromBody] Student student)
+        public IActionResult Update([FromBody] Student student)
         {
             try
             {
-                _service.Update(id, student);
+                _service.Update(student);
                 return Ok(new { Status = 0, Message = "Cập nhật sinh viên thành công." });
             }
             catch (BadRequestException ex)

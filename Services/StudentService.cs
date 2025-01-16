@@ -53,16 +53,11 @@ namespace CourseRegistrationSystem.Services
         }
 
 
-        public void Update(int id, Student student)
+        public void Update(Student student)
         {
             if (student == null)
             {
                 throw new BadRequestException("Dữ liệu không được rỗng.");
-            }
-
-            if (id != student.ID)
-            {
-                throw new BadRequestException("ID không khớp.");
             }
 
             if (student.EnrollmentDate <= DateTime.Now)
@@ -70,7 +65,7 @@ namespace CourseRegistrationSystem.Services
                 throw new BadRequestException("Ngày nhập học phải lớn hơn ngày hiện tại.");
             }
 
-            var existingStudent = _repository.GetStudentById(id);
+            var existingStudent = _repository.GetStudentById(student.ID);
             if (existingStudent == null)
             {
                 throw new NotFoundException("Không tìm thấy sinh viên.");
