@@ -1,31 +1,36 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using System.Security.Claims;
 
-public class PermissionAuthorizeAttribute : Attribute, IAuthorizationFilter
+public class PermissionAuthorizeAttribute : TypeFilterAttribute
 {
-    private readonly string _requiredPermission;
-
-    public PermissionAuthorizeAttribute(string requiredPermission)
+    public PermissionAuthorizeAttribute(string permission) : base(typeof(PermissionAuthorizeFilter))
     {
-        _requiredPermission = requiredPermission;
+        Arguments = new object[] { permission };
+    }
+}
+
+public class PermissionAuthorizeFilter : IAuthorizationFilter
+{
+    private readonly string _permission;
+
+    public PermissionAuthorizeFilter(string permission)
+    {
+        _permission = permission;
     }
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         var user = context.HttpContext.User;
-
-        if (user == null || !user.Identity.IsAuthenticated)
+        if (!user.Identity.IsAuthenticated)
         {
             context.Result = new UnauthorizedResult();
             return;
         }
 
-        var claims = user.Claims.Where(c => c.Type == "Permission").Select(c => c.Value).ToList();
-
-        if (!claims.Contains(_requiredPermission))
+        var hasClaim = user.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == _permission);
+        if (!hasClaim)
         {
             context.Result = new ForbidResult();
         }

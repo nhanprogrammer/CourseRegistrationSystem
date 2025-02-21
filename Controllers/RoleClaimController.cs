@@ -12,33 +12,33 @@ public class RoleClaimController : ControllerBase
     }
 
     [HttpGet("claims")]
-public async Task<IActionResult> GetRoleClaimsByRoleIds([FromQuery] string roleIds)
-{
-    if (string.IsNullOrEmpty(roleIds))
+    public async Task<IActionResult> GetRoleClaimsByRoleIds([FromQuery] string roleIds)
     {
-        return BadRequest(new { message = "RoleIds are required" });
-    }
+        if (string.IsNullOrEmpty(roleIds))
+        {
+            return BadRequest(new { message = "RoleIds are required" });
+        }
 
-    List<int> roleIdList;
-    try
-    {
-        roleIdList = roleIds.Split(',')
-                            .Select(int.Parse)
-                            .ToList();
-    }
-    catch
-    {
-        return BadRequest(new { message = "Invalid RoleIds format" });
-    }
+        List<int> roleIdList;
+        try
+        {
+            roleIdList = roleIds.Split(',')
+                                .Select(int.Parse)
+                                .ToList();
+        }
+        catch
+        {
+            return BadRequest(new { message = "Invalid RoleIds format" });
+        }
 
-    var roleClaims = await _roleClaimRepository.GetAllUsersWithRolesAndPermissionsAsync(roleIdList);
+        var roleClaims = await _roleClaimRepository.GetAllUsersWithRolesAndPermissionsAsync(roleIdList);
 
-    if (roleClaims == null || !roleClaims.Any())
-    {
-        return NotFound(new { message = "No RoleClaims found for these RoleIds" });
+        if (roleClaims == null || !roleClaims.Any())
+        {
+            return NotFound(new { message = "No RoleClaims found for these RoleIds" });
+        }
+
+        return Ok(roleClaims);
     }
-
-    return Ok(roleClaims);
-}
 
 }
