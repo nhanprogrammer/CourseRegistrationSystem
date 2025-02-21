@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CourseRegistrationSystem.Controllers;
 
-[Route("api/enrollment")]
+
+
 [ApiController]
+[Route("api/[controller]")]
 public class EnrollmentController : ControllerBase
 {
     private readonly EnrollmentService _enrollmentService;

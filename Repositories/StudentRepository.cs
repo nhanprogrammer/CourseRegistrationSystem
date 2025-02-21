@@ -15,6 +15,7 @@ namespace CourseRegistrationSystem.Repositories
 
         public Student GetStudentById(int studentId)
         {
+            Console.WriteLine($"Finding student with ID: {studentId}");
             return _schoolContext.Students.FirstOrDefault(o => o.ID == studentId);
         }
 

@@ -29,6 +29,7 @@ namespace CourseRegistrationSystem.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e + " Lỗi hệ thống");
                 return StatusCode(500, new { Status = 1, Description = "Lỗi hệ thống." });
             }
         }
@@ -43,6 +44,7 @@ namespace CourseRegistrationSystem.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Student student)
         {
+              Console.WriteLine("Run here" + student);
             try
             {
                 _service.Add(student);
@@ -64,11 +66,11 @@ namespace CourseRegistrationSystem.Controllers
 
 
         [HttpPut]
-        public IActionResult Update([FromQuery] int id, [FromBody] Student student)
+        public IActionResult Update( [FromBody] Student student)
         {
             try
             {
-                _service.Update(id, student);
+                _service.Update(student);
                 return Ok(new { Status = 0, Message = "Cập nhật sinh viên thành công." });
             }
             catch (BadRequestException ex)
@@ -107,6 +109,7 @@ namespace CourseRegistrationSystem.Controllers
         [HttpDelete]
         public IActionResult Delete([FromQuery] int id)
         {
+            Console.WriteLine($"Deleting student with ID: {id}");
             try
             {
                 _service.Delete(id);
@@ -120,8 +123,9 @@ namespace CourseRegistrationSystem.Controllers
             {
                 return BadRequest(new { Status = 1, Message = ex.Message });
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex){
+                Console.WriteLine(ex + " Lỗi hệ thống");
+            
                 return StatusCode(500, new { Status = 1, Message = "Lỗi hệ thống.", Details = ex.Message });
             }
         }
